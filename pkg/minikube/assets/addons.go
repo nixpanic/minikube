@@ -95,6 +95,16 @@ var Addons = map[string]*Addon{
 			constants.AddonsPath,
 			"glusterfs-daemonset.yaml",
 			"0640"),
+		NewBinDataAsset(
+			"deploy/addons/storage-provisioner-gluster/heketi-deployment.yaml",
+			constants.AddonsPath,
+			"heketi-deployment.yaml",
+			"0640"),
+		NewBinDataAsset(
+			"deploy/addons/storage-provisioner-gluster/heketi-service-account.yaml",
+			constants.AddonsPath,
+			"heketi-service-account.yaml",
+			"0640"),
 	}, false, "storage-provisioner-gluster"),
 	"kube-dns": NewAddon([]*BinDataAsset{
 		NewBinDataAsset(
