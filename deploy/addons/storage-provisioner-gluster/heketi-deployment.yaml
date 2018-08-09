@@ -43,7 +43,7 @@ spec:
     spec:
       serviceAccountName: heketi-service-account
       containers:
-      - image: heketi/heketi:dev
+      - image: quay.io/nixpanic/minukube-heketi:minikube
         imagePullPolicy: IfNotPresent
         name: heketi
         env:
