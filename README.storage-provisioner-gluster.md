@@ -39,5 +39,8 @@ $ kubectl describe pvc/claim1
 # TODO
 
 - drop the ssh-key bit, and use kubexec method with [proper rbac stuff](https://github.com/heketi/heketi/blob/master/docs/admin/install-kubernetes.md)
+  The heketi pod restarts once, is that the cause of the missing rbac rules?
+  `Error creating: pods "heketi-947f67646-" is forbidden: error looking up service account default/heketi-service-account: serviceaccount "heketi-service-account" not found`
+
 - use coredns addon with hostname heketi.default.svc.cluster.local in the StorageClass (default=namespace)
 - send PRs for standard glusterfs-server containers with fake-device support, public ssh-key merging
