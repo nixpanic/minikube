@@ -15,6 +15,12 @@ $ kubectl exec heketi-769698c5f4-9nqln -- heketi-cli --user=admin --secret=minik
 $ kubectl exec heketi-769698c5f4-9nqln -- heketi-cli --user=admin --secret=minikube device add --node=0dae37a9fe9a02d10394efc3cac2ba2a --name=/dev/fake
 ```
 
+Or, take the topology-minikube.json from gluster-kubernetes:
+
+```
+cat deploy/topology-minikube.json | sed 's/loop1/fake/' | kubectl exec -i heketi-769698c5f4-9nqln -- heketi-cli --user=admin --secret=minikube topology load --json=/dev/stdin
+```
+
 **yuck** need to delete/recreate the storage-class with heketi IP instead of hostname
 
 ```
@@ -32,5 +38,6 @@ $ kubectl describe pvc/claim1
 
 # TODO
 
+- drop the ssh-key bit, and use kubexec method with [proper rbac stuff](https://github.com/heketi/heketi/blob/master/docs/admin/install-kubernetes.md)
 - use coredns addon with hostname heketi.default.svc.cluster.local in the StorageClass (default=namespace)
 - send PRs for standard glusterfs-server containers with fake-device support, public ssh-key merging
