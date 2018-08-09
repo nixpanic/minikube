@@ -110,6 +110,11 @@ var Addons = map[string]*Addon{
 			constants.AddonsPath,
 			"heketi-service-account.yaml",
 			"0640"),
+		NewBinDataAsset(
+			"deploy/addons/storage-provisioner-gluster/storage-class-gluster.yaml",
+			constants.AddonsPath,
+			"storage-class-gluster.yaml",
+			"0640"),
 	}, false, "storage-provisioner-gluster"),
 	"kube-dns": NewAddon([]*BinDataAsset{
 		NewBinDataAsset(
