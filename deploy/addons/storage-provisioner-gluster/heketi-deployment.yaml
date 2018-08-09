@@ -19,6 +19,18 @@ spec:
     port: 8080
     targetPort: 8080
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: heketi-topology
+  labels:
+    k8s-app: storage-provisioner-gluster
+    kubernetes.io/minikube-addons: storage-provisioner-gluster
+    addonmanager.kubernetes.io/mode: Reconcile
+type: Opaque
+data:
+  minikube.json: ewogICJjbHVzdGVycyI6IFsKICAgIHsKICAgICAgIm5vZGVzIjogWwogICAgICAgIHsKICAgICAgICAgICJub2RlIjogewogICAgICAgICAgICAiaG9zdG5hbWVzIjogewogICAgICAgICAgICAgICJtYW5hZ2UiOiBbCiAgICAgICAgICAgICAgICAibWluaWt1YmUiCiAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAic3RvcmFnZSI6IFsKICAgICAgICAgICAgICAgICIxNzIuMTcuMC4xIgogICAgICAgICAgICAgIF0KICAgICAgICAgICAgfSwKICAgICAgICAgICAgInpvbmUiOiAxCiAgICAgICAgICB9LAogICAgICAgICAgImRldmljZXMiOiBbCiAgICAgICAgICAgICIvZGV2L2Zha2UiCiAgICAgICAgICBdCiAgICAgICAgfQogICAgICBdCiAgICB9CiAgXQp9Cg==
+---
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
@@ -69,11 +81,16 @@ spec:
           value: "true"
         - name: HEKETI_GLUSTERAPP_LOGLEVEL
           value: "debug"
+        # initial topology.json in case the db does not exist
+        - name: HEKETI_TOPOLOGY_FILE
+          value: "/etc/heketi/topology/minikube.json"
         ports:
         - containerPort: 8080
         volumeMounts:
         - name: db
           mountPath: "/var/lib/heketi"
+        - name: initial-topology
+          mountPath: "/etc/heketi/topology"
         # only private ssh-key is needed, all other options are passed through
         # environment variables
         - name: ssh-key
@@ -94,6 +111,9 @@ spec:
       - name: db
         hostPath:
           path: "/var/lib/heketi"
+      - name: initial-topology
+        secret:
+          secretName: heketi-topology
       - name: ssh-key
         secret:
           secretName: gluster-ssh-key
