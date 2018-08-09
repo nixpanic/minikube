@@ -48,13 +48,19 @@ spec:
         name: heketi
         env:
         - name: HEKETI_USER_KEY
-          value: ${HEKETI_USER_KEY}
+          value: "minikube"
         - name: HEKETI_ADMIN_KEY
-          value: ${HEKETI_ADMIN_KEY}
+          value: "minikube"
         - name: HEKETI_EXECUTOR
-          value: ${HEKETI_EXECUTOR}
+          value: "ssh"
+        - name: HEKETI_SSH_KEYFILE
+          value: "/etc/heketi/ssh-for-minikube"
+        - name: HEKETI_SSH_USER
+          value: "root"
+        - name: HEKETI_SSH_PORT
+          value: "2222"
         - name: HEKETI_FSTAB
-          value: ${HEKETI_FSTAB}
+          value: "/var/lib/heketi/fstab"
         - name: HEKETI_SNAPSHOT_LIMIT
           value: '14'
         - name: HEKETI_KUBE_GLUSTER_DAEMONSET
@@ -68,8 +74,10 @@ spec:
         volumeMounts:
         - name: db
           mountPath: "/var/lib/heketi"
-#        - name: config
-#          mountPath: /etc/heketi
+        # only private ssh-key is needed, all other options are passed through
+        # environment variables
+        - name: config
+          mountPath: /etc/heketi
         readinessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 3
@@ -86,9 +94,6 @@ spec:
       - name: db
         hostPath:
           path: "/var/lib/heketi"
-#        glusterfs:
-#          endpoints: heketi-storage-endpoints
-#          path: heketidbstorage
-#      - name: config
-#        secret:
-#          secretName: heketi-config-secret
+      - name: config
+        secret:
+          secretName: gluster-ssh-key

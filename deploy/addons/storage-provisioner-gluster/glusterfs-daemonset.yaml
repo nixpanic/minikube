@@ -39,6 +39,8 @@ spec:
         #  value: "10G"
         #- name: USE_FAKE_DEV
         #  value: "/dev/fake"
+        - name: SSH_ROOT_PUB_KEY
+          value: "/etc/heketi/ssh-for-minikube.pub"
         resources:
           requests:
             memory: 100Mi
@@ -74,6 +76,8 @@ spec:
         - name: kernel-modules
           mountPath: "/usr/lib/modules"
           readOnly: true
+        - name: ssh-key
+          mountPath: "/etc/heketi"
         securityContext:
           capabilities: {}
           privileged: true
@@ -134,3 +138,6 @@ spec:
       - name: kernel-modules
         hostPath:
           path: "/usr/lib/modules"
+      - name: ssh-key
+        secret:
+          secretName: gluster-ssh-key
