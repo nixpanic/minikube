@@ -91,11 +91,6 @@ var Addons = map[string]*Addon{
 	}, true, "storage-provisioner"),
 	"storage-provisioner-gluster": NewAddon([]*BinDataAsset{
 		NewBinDataAsset(
-			"deploy/addons/storage-provisioner-gluster/gluster-ssh-key.yaml",
-			constants.AddonsPath,
-			"gluster-ssh-key.yaml",
-			"0600"),
-		NewBinDataAsset(
 			"deploy/addons/storage-provisioner-gluster/glusterfs-daemonset.yaml",
 			constants.AddonsPath,
 			"glusterfs-daemonset.yaml",
@@ -104,11 +99,6 @@ var Addons = map[string]*Addon{
 			"deploy/addons/storage-provisioner-gluster/heketi-deployment.yaml",
 			constants.AddonsPath,
 			"heketi-deployment.yaml",
-			"0640"),
-		NewBinDataAsset(
-			"deploy/addons/storage-provisioner-gluster/heketi-service-account.yaml",
-			constants.AddonsPath,
-			"heketi-service-account.yaml",
 			"0640"),
 		NewBinDataAsset(
 			"deploy/addons/storage-provisioner-gluster/storage-class-gluster.yaml",
