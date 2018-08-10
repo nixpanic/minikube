@@ -84,10 +84,6 @@ spec:
         imagePullPolicy: IfNotPresent
         name: heketi
         env:
-        - name: HEKETI_USER_KEY
-          value: "minikube"
-        - name: HEKETI_ADMIN_KEY
-          value: "minikube"
         - name: HEKETI_EXECUTOR
           value: "ssh"
         - name: HEKETI_SSH_KEYFILE

@@ -11,5 +11,4 @@ provisioner: kubernetes.io/glusterfs
 parameters:
     resturl: "http://heketi.default.svc.cluster.local:8080"
     restuser: "admin"
-    restuserkey: "minikube"
     volumetype: "none"
