@@ -20,16 +20,41 @@ spec:
     targetPort: 8080
 ---
 apiVersion: v1
-kind: Secret
+kind: ConfigMap
 metadata:
   name: heketi-topology
   labels:
     k8s-app: storage-provisioner-gluster
     kubernetes.io/minikube-addons: storage-provisioner-gluster
     addonmanager.kubernetes.io/mode: Reconcile
-type: Opaque
 data:
-  minikube.json: ewogICJjbHVzdGVycyI6IFsKICAgIHsKICAgICAgIm5vZGVzIjogWwogICAgICAgIHsKICAgICAgICAgICJub2RlIjogewogICAgICAgICAgICAiaG9zdG5hbWVzIjogewogICAgICAgICAgICAgICJtYW5hZ2UiOiBbCiAgICAgICAgICAgICAgICAibWluaWt1YmUiCiAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAic3RvcmFnZSI6IFsKICAgICAgICAgICAgICAgICIxNzIuMTcuMC4xIgogICAgICAgICAgICAgIF0KICAgICAgICAgICAgfSwKICAgICAgICAgICAgInpvbmUiOiAxCiAgICAgICAgICB9LAogICAgICAgICAgImRldmljZXMiOiBbCiAgICAgICAgICAgICIvZGV2L2Zha2UiCiAgICAgICAgICBdCiAgICAgICAgfQogICAgICBdCiAgICB9CiAgXQp9Cg==
+  minikube.json: |+
+    {
+      "clusters": [
+        {
+          "nodes": [
+            {
+              "node": {
+                "hostnames": {
+                  "manage": [
+                    "minikube"
+                  ],
+                  "storage": [
+                    "172.17.0.1"
+                  ]
+                },
+                "zone": 1
+              },
+              "devices": [
+                "/dev/fake"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+
+
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -112,8 +137,8 @@ spec:
         hostPath:
           path: "/var/lib/heketi"
       - name: initial-topology
-        secret:
-          secretName: heketi-topology
+        configMap:
+          name: heketi-topology
       - name: ssh-key
         secret:
           secretName: gluster-ssh-key
