@@ -59,4 +59,4 @@ several containers that need to get started and configured.
 # TODO
 
 - send PRs for standard glusterfs-server containers with fake-device support
-- send PR for heketi-start.sh that imports the topology.json upon first start
+- [get the PR merged](https://github.com/heketi/heketi/pull/1314) for heketi-start.sh that imports the topology.json upon first start
