@@ -107,7 +107,7 @@ spec:
     spec:
       serviceAccountName: heketi-service-account
       containers:
-      - image: quay.io/nixpanic/minukube-heketi:minikube
+      - image: heketi/heketi:latest
         imagePullPolicy: IfNotPresent
         name: heketi
         env:
