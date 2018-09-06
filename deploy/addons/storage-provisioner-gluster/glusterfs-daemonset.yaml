@@ -2,6 +2,7 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
+  namespace: storage-gluster
   name: glusterfs
   labels:
     glusterfs: daemonset
@@ -17,6 +18,7 @@ spec:
       k8s-app: storage-provisioner-gluster
   template:
     metadata:
+      namespace: storage-gluster
       name: glusterfs
       labels:
         glusterfs: pod
