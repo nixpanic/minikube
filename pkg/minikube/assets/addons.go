@@ -91,6 +91,11 @@ var Addons = map[string]*Addon{
 	}, true, "storage-provisioner"),
 	"storage-provisioner-gluster": NewAddon([]*BinDataAsset{
 		NewBinDataAsset(
+			"deploy/addons/storage-provisioner-gluster/storage-gluster-ns.yaml",
+			constants.AddonsPath,
+			"storage-gluster-ns.yaml",
+			"0640"),
+		NewBinDataAsset(
 			"deploy/addons/storage-provisioner-gluster/glusterfs-daemonset.yaml",
 			constants.AddonsPath,
 			"glusterfs-daemonset.yaml",
