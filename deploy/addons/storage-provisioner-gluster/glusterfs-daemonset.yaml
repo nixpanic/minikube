@@ -56,8 +56,8 @@ spec:
           mountPath: "/run"
         - name: glusterfs-lvm
           mountPath: "/run/lvm"
-        - name: glusterfs-etc
-          mountPath: "/etc/glusterfs"
+        #- name: glusterfs-etc
+        #  mountPath: "/etc/glusterfs"
         - name: glusterfs-logs
           mountPath: "/var/log/glusterfs"
         - name: glusterfs-config
