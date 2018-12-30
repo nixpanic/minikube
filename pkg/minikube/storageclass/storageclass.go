@@ -69,9 +69,9 @@ func DisableAllOtherStorageClasses(name string) error {
 			continue
 		}
 
-		err = client.Storage().StorageClasses().Delete(name, &metav1.DeleteOptions{})
+		err = client.Storage().StorageClasses().Delete(sc.Name, &metav1.DeleteOptions{})
 		if err != nil {
-			return errors.Wrapf(err, "Error deleting storage class %s", name)
+			return errors.Wrapf(err, "Error deleting storage class %s", sc.Name)
 		}
 	}
 
